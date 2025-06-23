@@ -12,10 +12,10 @@ async function generateTabMainBlock(html) {
 const HASH_REGEX = /tabs--(.*)--(.*)/;
 const HASH_SCROLL_POLL_INTERVAL_DELAY_IN_MILLI_SECONDS = 20;
 function decodeHashToObject() {
-  if (!window.location.hash || window.location.hash.length < 3) {
+  if(!window.location.hash || window.location.hash.length < 3) {
     return null;
   }
-
+  
   const base = decodeURI(window.location.hash.slice(1));
   const matches = base.match(HASH_REGEX);
   if (matches) {
@@ -118,8 +118,6 @@ export default async function decorate(block) {
     }
   }
 }
-
-
 
 // // eslint-disable-next-line import/no-unresolved
 // import { toClassName } from '../../scripts/aem.js';
