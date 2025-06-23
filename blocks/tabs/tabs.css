@@ -1,4 +1,4 @@
-.tabs {
+/* .tabs {
     overflow-x: hidden; /* so we could easily hide the radio inputs */
 	margin: 32px 0;
 	padding-bottom: 16px;
@@ -123,9 +123,8 @@
 .tabs [type="radio"]:nth-of-type(17):checked ~ .contents-wrapper .contents:nth-of-type(17),
 .tabs [type="radio"]:nth-of-type(18):checked ~ .contents-wrapper .contents:nth-of-type(18){
 	display: block;
-}
+} */
 
-/* 
 
 .tabs .tabs-list {
   display: flex;
@@ -185,4 +184,3 @@
 .tabs .tabs-panel[aria-hidden='true'] {
   display: none;
 }
- */
