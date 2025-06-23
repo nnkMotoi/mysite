@@ -78,10 +78,10 @@
 // }
 
 // export default async function decorate(block) {
-//   const presentTabContents = [...block.querySelectorAll(':scope > div.contents-wrapper > div.contents')];
+// const presentTabContents = [...block.querySelectorAll(':scope > div.contents-wrapper > div.contents')];
 
 //   if (presentTabContents && presentTabContents.length > 0) {
-//     const tabSectionIndex = [...block.closest('main').childNodes].indexOf(block.closest('.section'));
+// const tabSectionIndex = [...block.closest('main').childNodes].indexOf(block.closest('.section'));
 
 //     block.prepend(generateTabNav(tabSectionIndex, presentTabContents));
 //     generateHiddenInput(tabSectionIndex, presentTabContents, block);
@@ -91,7 +91,7 @@
 //     const promises = presentTabContents.map(async (contents) => {
 //       const tabMainBlock = await generateTabMainBlock(contents.innerHTML);
 //       if (tabMainBlock) {
-//         const fragmentSection = tabMainBlock.querySelector(':scope .section');
+//  const fragmentSection = tabMainBlock.querySelector(':scope .section');
 //         if (fragmentSection) {
 //           const section = block.closest('.section');
 //           const cssClasses = [...fragmentSection.classList].filter((val) => val !== 'two-columns');
