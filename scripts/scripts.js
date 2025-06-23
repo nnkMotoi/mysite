@@ -12,7 +12,7 @@ import {
   loadSections,
   loadCSS,
   decorateBlock,
-  loadBlock,      
+  loadBlock,
 } from './aem.js';
 
 /**
@@ -69,31 +69,6 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
-/**
- * Loads everything needed to get to LCP.
- * @param {Element} doc The container element
- */
-async function loadEager(doc) {
-  document.documentElement.lang = 'en';
-  decorateTemplateAndTheme();
-  const main = doc.querySelector('main');
-  if (main) {
-    decorateMain(main);
-    aggregateTabSectionsIntoComponents(main);
-    document.body.classList.add('appear');
-    await loadSection(main.querySelector('.section'), waitForFirstImage);
-  }
-
-  try {
-    /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
-    if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
-      loadFonts();
-    }
-  } catch (e) {
-    // do nothing
-  }
-}
-
 const tabElementMap = {};
 
 function calculateTabSectionCoordinate(main, lastTabBeginningIndex, targetTabSourceSection) {
@@ -107,20 +82,17 @@ function calculateTabSectionCoordinates(main) {
   let lastTabIndex = -1;
   let foldedTabsCounter = 0;
   const mainSections = [...main.childNodes];
-  main
-      .querySelectorAll('div.section[data-tab-title]')
-      .forEach((section) => {
-        const currentSectionIndex = mainSections.indexOf(section);
-
-        if (lastTabIndex < 0 || (currentSectionIndex - foldedTabsCounter) !== lastTabIndex) {
-          // we construct a new tabs component, at the currentSectionIndex
-          lastTabIndex = currentSectionIndex;
-          foldedTabsCounter = 0;
-        }
-
-        foldedTabsCounter += 2;
-        calculateTabSectionCoordinate(main, lastTabIndex, section);
-      });
+  main.querySelectorAll('div.section[data-tab-title]')
+    .forEach((section) => {
+      const currentSectionIndex = mainSections.indexOf(section);
+      if (lastTabIndex < 0 || (currentSectionIndex - foldedTabsCounter) !== lastTabIndex) {
+        // we construct a new tabs component, at the currentSectionIndex
+        lastTabIndex = currentSectionIndex;
+        foldedTabsCounter = 0;
+      }
+      foldedTabsCounter += 2;
+      calculateTabSectionCoordinate(main, lastTabIndex, section);
+    });
 }
 
 async function autoBlockTabComponent(main, targetIndex, tabSections) {
@@ -187,6 +159,31 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+}
+
+/**
+ * Loads everything needed to get to LCP.
+ * @param {Element} doc The container element
+ */
+async function loadEager(doc) {
+  document.documentElement.lang = 'en';
+  decorateTemplateAndTheme();
+  const main = doc.querySelector('main');
+  if (main) {
+    decorateMain(main);
+    aggregateTabSectionsIntoComponents(main);
+    document.body.classList.add('appear');
+    await loadSection(main.querySelector('.section'), waitForFirstImage);
+  }
+
+  try {
+    /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
+    if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
+      loadFonts();
+    }
+  } catch (e) {
+    // do nothing
+  }
 }
 
 /**
