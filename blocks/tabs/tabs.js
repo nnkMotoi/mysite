@@ -24,7 +24,6 @@ function decodeHashToObject() {
       tabsComponentMatches: (index) => parseFloat(matches[1]) === index,
     };
   }
-
   return null;
 }
 
